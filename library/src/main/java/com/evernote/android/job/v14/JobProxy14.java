@@ -28,6 +28,7 @@ import androidx.annotation.RestrictTo;
 import com.evernote.android.job.JobConfig;
 import com.evernote.android.job.JobProxy;
 import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.PendingIntentUtil;
 import com.evernote.android.job.util.JobCat;
 import com.evernote.android.job.util.JobUtil;
 
@@ -198,7 +199,7 @@ public class JobProxy14 implements JobProxy {
 
         // repeating PendingIntent with service seams to have problems
         try {
-            return PendingIntent.getBroadcast(mContext, jobId, intent, flags);
+            return PendingIntent.getBroadcast(mContext, jobId, intent, flags | PendingIntentUtil.flagImmutable());
         } catch (Exception e) {
             // java.lang.SecurityException: Permission Denial: getIntentSender() from pid=31482, uid=10057,
             // (need uid=-1) is not allowed to send as package com.evernote
